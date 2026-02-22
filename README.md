@@ -214,7 +214,7 @@ If you're still stuck:
 
 ## 👤 Author
 
-**Youssef EL ALAMI** — [GitHub](https://github.com/YoussefELALAMI) · [LinkedIn](https://www.linkedin.com/in/youssef-el-alami-/)
+**EL ALAMI Youssef** — [GitHub](https://github.com/YoussefELALAMI) · [LinkedIn](https://www.linkedin.com/in/youssef-el-alami-/)
 
 ---
 

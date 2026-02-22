@@ -214,7 +214,7 @@ If you're still stuck:
 
 ## 👤 Author
 
-**[Your Name]** — [GitHub](https://github.com/your-username) · [LinkedIn](https://linkedin.com/in/your-profile)
+**EL ALAMI Youssef** — [GitHub](https://github.com/YoussefELALAMI) · [LinkedIn](https://www.linkedin.com/in/youssef-el-alami-/)
 
 ---
 

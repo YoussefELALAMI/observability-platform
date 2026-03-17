@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,7 @@ public class LogRepositoryTest {
         log.setService(serviceName);
         log.setLevel(level);
         log.setMessage(message);
+        log.setTimestamp(OffsetDateTime.now());
         return log;
     }
 
@@ -51,22 +53,29 @@ public class LogRepositoryTest {
     }
 
     @Test
-    @DisplayName("Should persist all fields correctly when saving a log entry")
-    void testSaveLogWithAllFields() {
-        // ARRANGE - prepare the data
-        Log log = buildLog("auth-service", LogLevel.ERROR, "Authentication failed");
-        // Flush and clear the persistence context to ensure we are testing the actual database state
+    @DisplayName("Should persist all fields correctly")
+    void shouldPersistAllFields() {
+        Log log = buildLog("auth-service", LogLevel.ERROR, "Token expired");
+
+        Log saved = logRepository.save(log);
+        // Flush and clear forces Hibernate to hit the DB,
+        // not just return the cached object
         logRepository.flush();
 
-        // ACT - retrieve the log entry from the database
-        Optional<Log> retrievedLog = logRepository.findById(log.getId());
+        Optional<Log> found = logRepository.findById(saved.getId());
 
-        // ASSERT - verify the results
-        Assertions.assertTrue(retrievedLog.isPresent(), "Log entry should be present in the database");
-        Log logFromDb = retrievedLog.get();
-        Assertions.assertEquals("auth-service", logFromDb.getService(), "Service name should match");
-        Assertions.assertEquals(LogLevel.ERROR, logFromDb.getLevel(), "Log level should match");
-        Assertions.assertEquals("Authentication failed", logFromDb.getMessage(), "Log message should match");
+        assertThat(found).isPresent();
+        assertThat(found.get().getService()).isEqualTo("auth-service");
+        assertThat(found.get().getLevel()).isEqualTo(LogLevel.ERROR);
+        assertThat(found.get().getMessage()).isEqualTo("Token expired");
+    }
+
+    @Test
+    @DisplayName("Should return empty Optional when ID does not exist")
+    void shouldReturnEmptyForUnknownId() {
+        Optional<Log> found = logRepository.findById(999L);
+
+        assertThat(found).isEmpty();
     }
 
     // ── Query method tests ──────────────────────────────────────────────────

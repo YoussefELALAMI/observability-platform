@@ -1,0 +1,1 @@
+ALTER INDEX ids_logs_timestamp RENAME TO idx_logs_timestamp;

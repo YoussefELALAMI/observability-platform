@@ -2,10 +2,14 @@ package com.observability.platform.domain.entity;
 
 import com.observability.platform.domain.model.LogLevel;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
+@Getter
+@Setter
 @Entity
 @Table(name="logs", schema = "observability_schema", indexes = {
         @Index(name = "idx_logs_timestamp", columnList = "timestamp DESC"),

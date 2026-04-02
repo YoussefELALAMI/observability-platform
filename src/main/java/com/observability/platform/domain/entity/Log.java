@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.OffsetDateTime;
 
 @Getter
@@ -26,7 +27,7 @@ public class Log {
     String service;
 
     @Column(name = "timestamp", nullable = false)
-    OffsetDateTime timestamp;
+    Instant timestamp;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "level", nullable = false, length = 20)
